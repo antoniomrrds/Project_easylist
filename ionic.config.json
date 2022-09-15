@@ -1,0 +1,7 @@
+{
+  "name": "easylist",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
