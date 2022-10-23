@@ -1,8 +1,12 @@
-<ion-header>
+<ion-header >
   <ion-toolbar color="dark">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>Login</ion-title>
   </ion-toolbar>
 </ion-header>
+
 
 <ion-content>
   <div class="flex-center">
@@ -11,18 +15,31 @@
         <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
       </ion-avatar>
 
-      <form>
+
         <ion-item lines="full" class="btn-input">
           <ion-label position="floating">E-mail</ion-label>
-          <ion-input type="email" required></ion-input>
+          <ion-input type="email" [(ngModel)]="email" required></ion-input>
         </ion-item>
+
         <ion-item lines="full" class="btn-input">
           <ion-label position="floating">Senha</ion-label>
-          <ion-input type="password" required></ion-input>
+          <ion-input type="password" [(ngModel)]="password" required></ion-input>
         </ion-item>
-        <ion-button class="btn-register"  [routerLink]="['/list']"  type="submit" color="primary" expand="block">Entrar</ion-button>
 
-      </form>
+        <ion-row>
+          <ion-col>
+            <ion-button
+              type="submit"
+              expand="block"
+              (click)="signin()"
+              shape="round"
+              color="primary"
+              >Entrar</ion-button
+            >
+          </ion-col>
+        </ion-row>
+
+
     </ion-card>
   </div>
 </ion-content>

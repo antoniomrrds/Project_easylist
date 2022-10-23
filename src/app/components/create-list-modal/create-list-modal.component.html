@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Criar  Lista</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismissModal()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  <ion-item>
+  <ion-label position="floating">Criar Lista</ion-label>
+  <ion-input [formControl]="name"  type="text"></ion-input>
+  </ion-item>
+  <div *ngIf="name.invalid">
+    <p *ngIf="name.errors?.['required']"class="validation-error" >
+      O Nome da lista é obrigatório.
+    </p>
+    <p *ngIf="name.errors?.['minlength']" class="validation-error" >
+      O  Nome da lista deve conter mais do que 3 caracteres.
+    </p>
+  </div>
+  <ion-button [disabled]="!createUseList.valid" expand="block" (click)="onCreateList()" class="ion-margin-top">Criar</ion-button>
+  </ion-content>
