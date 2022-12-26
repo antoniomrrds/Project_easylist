@@ -1,37 +1,27 @@
 import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { User } from 'src/models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  constructor(private afa: AngularFireAuth) { }
 
-  private users: User[] = [
-    {
-      id: 1,
-      email: 'antoniomarcos.amrrds@gmail.com',
-      password: '12345',
-      name: 'antonio',
-      lastname: 'joao',
-    },
-  ];
+ public create(user: User) {
+    return this.afa.createUserWithEmailAndPassword(user.email, user.password);
+  }
 
-  constructor() { }
+  public login(user: User){
+   return this.afa.signInWithEmailAndPassword(user.email, user.password);
+  }
 
-  public get(id: number): User {
-    return this.users.find(item => item.id === id);
-}
-  public login(email: string , password: string): User {
-    return this.users.find(
-      (item) => item.email === email && item.password === password
-    );
-}
+  public logout() {
+      return this.afa.signOut();
+  }
 
-  public create(user: User): void {
-   this.users.push(user);
-}
-
-
-
+  public getAuth(){
+    return this.afa;
+  }
 
 }

@@ -2,7 +2,14 @@ ion-content {
   --background: var(--ion-color-dark);
 }
 
-.validation-error{
+.validation-error {
   color: red;
-  margin-left:15px ;
+  margin-left: 15px;
+}
+
+.rounded {
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px ;
+  margin-bottom: 10px;
 }

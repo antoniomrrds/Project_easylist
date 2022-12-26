@@ -21,10 +21,22 @@
 
 .btn-input{
     padding-top: 15px;
-}
+    width:200px ;
+  }
 
 ion-content{
   --background: var(--ion-color-dark);
 }
 
+
+.validation-error{
+  color: red;
+  margin-left:15px ;
+}
+.rounded {
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px ;
+  margin-bottom: 10px;
+}
 

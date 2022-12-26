@@ -3,15 +3,15 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Registrar</ion-title>
+    <ion-title class="ion-text-center" >Registrar</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="ion-padding" >
   <form [formGroup]="createUserForm" (ngSubmit)="register()">
-    <ion-item>
+    <ion-item  class="rounded">
       <ion-label position="floating">Nome</ion-label>
-      <ion-input formControlName="name"></ion-input>
+      <ion-input  formControlName="name"></ion-input>
     </ion-item>
     <div *ngIf="name.invalid">
       <p *ngIf="name.errors?.['required']"class="validation-error">
@@ -21,7 +21,7 @@
         O nome deve conter mais do que 2 caracteres.
       </p>
     </div>
-    <ion-item>
+    <ion-item class="rounded">
       <ion-label position="floating">Sobrenome</ion-label>
       <ion-input formControlName="lastname"></ion-input>
     </ion-item>
@@ -34,7 +34,7 @@
       </p>
     </div>
 
-    <ion-item>
+    <ion-item class="rounded">
       <ion-label position="floating">E-mail</ion-label>
       <ion-input type="email" formControlName="email"></ion-input>
     </ion-item>
@@ -47,7 +47,7 @@
       </p>
     </div>
 
-    <ion-item>
+    <ion-item class="rounded">
       <ion-label position="floating">Senha</ion-label>
       <ion-input type="password" formControlName="password"></ion-input>
     </ion-item>
@@ -62,7 +62,7 @@
     <p *ngIf="isEqualsValidation" class="validation-error" >
       A senhas não conferem.
     </p>
-    <ion-item>
+    <ion-item class="rounded">
       <ion-label position="floating">Confirmar Senha </ion-label>
       <ion-input type="password" formControlName="confirmPassword"></ion-input>
     </ion-item>
@@ -75,7 +75,7 @@
       </p>
     </div>
     <p *ngIf="isEqualsValidation" class="validation-error" >
-      A senhas não conferem.
+      As senhas não conferem.
     </p>
 
     <ion-row>
@@ -92,40 +92,3 @@
     </ion-row>
   </form>
 </ion-content>
-
-<!-- <ion-content>
-  <div class="flex-center">
-    <ion-card color="dark">
-      <ion-card-header>
-        <ion-card-title color="success" >Crie sua conta</ion-card-title>
-      </ion-card-header>
-        <ion-item lines="full" >
-          <ion-label position="floating">Nome</ion-label>
-          <ion-input  type="text" [(ngModel)]="name" required></ion-input>
-        </ion-item>
-        <ion-item lines="full" class="btn-input">
-          <ion-label position="floating">Sobrenome</ion-label>
-          <ion-input type="text" [(ngModel)]="lastname" required></ion-input>
-        </ion-item>
-        <ion-item lines="full" class="btn-input">
-          <ion-label position="floating">E-mail</ion-label>
-          <ion-input type="email" [(ngModel)]="email" required></ion-input>
-        </ion-item>
-        <ion-item lines="full" class="btn-input">
-          <ion-label position="floating">Senha</ion-label>
-          <ion-input type="password" [(ngModel)]="password" required></ion-input>
-        </ion-item>
-        <ion-item lines="full" class="btn-input">
-          <ion-label position="floating">Confirmar senha</ion-label>
-          <ion-input type="password" required></ion-input>
-        </ion-item>
-
-
-
-
-      <ion-col>
-        <ion-button (click)="register()" expand="block" color="success" shape="round">Registrar</ion-button>
-      </ion-col>
-    </ion-card>
-  </div>
-</ion-content> -->

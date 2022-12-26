@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../../models/user.model';
+import { LoadingController, ToastController } from '@ionic/angular';
 
 import { UserService } from '../services/user.service';
 import {
@@ -18,8 +19,7 @@ import {
 export class SignUpPage implements OnInit {
   public createUserForm!: FormGroup;
   public user: User = new User();
-  public isEquals = false;
-  public isEqualsValidation = false;
+  private loading: any;
   userExample: User = {
     name: 'antoniomarcos',
     lastname: 'reis',
@@ -30,24 +30,26 @@ export class SignUpPage implements OnInit {
 
   constructor(
     private router: Router,
-    private userServ: UserService
-    ) {}
+    private userServ: UserService,
+    private loadingCtrl: LoadingController,
+    private toastController: ToastController
+  ) { }
 
   ngOnInit() {
-     this.createUserForm = new FormGroup({
+    this.createUserForm = new FormGroup({
       name: new FormControl(this.userExample.name, [
-         Validators.compose([
+        Validators.compose([
           Validators.required,
           Validators.minLength(2)
         ]),
       ]),
-      lastname:new FormControl(this.userExample.lastname, [
+      lastname: new FormControl(this.userExample.lastname, [
         Validators.compose([
           Validators.required,
           Validators.minLength(2),
         ]),
       ]),
-      email:new FormControl(this.userExample.email,  [
+      email: new FormControl(this.userExample.email, [
         Validators.compose([
           Validators.required,
           Validators.email,
@@ -61,7 +63,7 @@ export class SignUpPage implements OnInit {
           Validators.maxLength(15),
         ]),
       ]),
-      confirmPassword:new FormControl(this.userExample.confirmPassword, [
+      confirmPassword: new FormControl(this.userExample.confirmPassword, [
         Validators.compose([
           Validators.required,
           Validators.minLength(6),
@@ -88,25 +90,48 @@ export class SignUpPage implements OnInit {
     return this.createUserForm.get('confirmPassword');
   }
 
-  passwordEquals(value: string,value2: string){
-  return value === value2;
+  passwordEquals(value: string, value2: string) {
+    return value === value2;
   }
 
-  register() {
-    if(this.createUserForm.invalid){
-      return;
-     }
-    const value = this.createUserForm.value;
 
-    if(this.passwordEquals(value.password,value.confirmPassword))
-     {
-      this.isEqualsValidation = false;
-      delete value.confirmPassword;
-      this.userServ.create(value);
-      this.createUserForm.reset();
-      this.router.navigate(['/home']);
-      return;
-     }
-    this.isEqualsValidation = true;
+  async register() {
+    try {
+      if (this.createUserForm.invalid) {
+        return;
+      }
+
+      const { value } = this.createUserForm;
+      if (this.passwordEquals(value.password, value.confirmPassword)) {
+        delete value.confirmPassword;
+        await this.showLoading();
+        await this.userServ.create(value);
+        console.log(value);
+        this.createUserForm.reset();
+        return this.router.navigate(['/home']);
+      }
+    } catch (err) {
+      this.presentToast(err.message);
+    } finally {
+      this.loading.dismiss();
+    }
+  }
+
+
+  async showLoading() {
+    this.loading = await this.loadingCtrl.create({
+      message: 'Por favor aguarde...',
+      spinner: 'circles',
+    });
+
+    return this.loading.present();
+  }
+
+  async presentToast(message: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 3000,
+    });
+    await toast.present();
   }
 }

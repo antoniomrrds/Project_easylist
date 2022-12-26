@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Login</ion-title>
+    <ion-title class="ion-text-center">Login</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -12,34 +12,47 @@
   <div class="flex-center">
     <ion-card class="full-width">
       <ion-avatar class="avatar-icon">
-        <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/demos/api/avatar/avatar.svg" />
+        <img alt="Silhouette of a person's head" src="../../assets/img/carShop.jpg" />
       </ion-avatar>
+        <form [formGroup]="loginForm" (ngSubmit)="signin()">
+          <ion-item class="rounded">
+            <ion-label position="floating">E-mail</ion-label>
+            <ion-input class="btn-input" type="email" formControlName="email"></ion-input>
+          </ion-item>
+          <div *ngIf="email.invalid">
+            <p *ngIf="email.errors?.['email'] && email.errors?.['pattern']"class="validation-error">
+              E-mail inválido.
+            </p>
+            <p *ngIf="email.errors?.['required']"class="validation-error">
+              E-mail é obrigatório.
+            </p>
+          </div>
 
-
-        <ion-item lines="full" class="btn-input">
-          <ion-label position="floating">E-mail</ion-label>
-          <ion-input type="email" [(ngModel)]="email" required></ion-input>
-        </ion-item>
-
-        <ion-item lines="full" class="btn-input">
-          <ion-label position="floating">Senha</ion-label>
-          <ion-input type="password" [(ngModel)]="password" required></ion-input>
-        </ion-item>
-
-        <ion-row>
-          <ion-col>
-            <ion-button
-              type="submit"
-              expand="block"
-              (click)="signin()"
-              shape="round"
-              color="primary"
-              >Entrar</ion-button
-            >
-          </ion-col>
-        </ion-row>
-
-
+          <ion-item class="rounded" >
+            <ion-label position="floating">Senha</ion-label>
+            <ion-input type="password" formControlName="password"></ion-input>
+          </ion-item>
+          <div *ngIf="password.invalid">
+            <p *ngIf="password.errors?.['required']"class="validation-error">
+              A Senha é obrigatória.
+            </p>
+            <p *ngIf="password.errors?.['minlength'] || password.errors?.['maxlength']" class="validation-error" >
+              O Senha deve conter entre 5 e no máximo 15 caracteres.
+            </p>
+          </div>
+          <ion-row>
+            <ion-col>
+              <ion-button
+                type="submit"
+                expand="block"
+                [disabled]="!loginForm.valid"
+                color="success"
+                shape="round"
+                >Login</ion-button
+              >
+            </ion-col>
+          </ion-row>
+        </form>
     </ion-card>
   </div>
 </ion-content>

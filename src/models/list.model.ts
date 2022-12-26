@@ -1,8 +1,9 @@
 export class List {
   constructor();
   constructor(
-    public id?: number,
+    public id?: string,
     public name?: string,
-    public itens?: string[]
-  ) {}
+    public userId?: string
+
+  ) { }
 }
